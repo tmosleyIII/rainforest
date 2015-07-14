@@ -9,7 +9,8 @@ import (
 )
 
 type Challenge struct {
-	Follow string
+	Follow  string `json:"follow,omitempty"`
+	Message string `json:"message,omitempty"`
 }
 
 func fixURL(url string) string {
@@ -45,12 +46,13 @@ func main() {
 	url := "http://letsrevolutionizetesting.com/challenge"
 
 	for {
-		archiveURL := url
-		resp := followURL(url)
-		fmt.Println(resp.Follow)
-		if resp.Follow != archiveURL {
+		if resp := followURL(url); resp.Follow != "" {
+			fmt.Println(resp.Follow)
 			followURL(resp.Follow)
 			url = resp.Follow
+		} else {
+			fmt.Println(resp.Message)
+			break
 		}
 	}
 }
