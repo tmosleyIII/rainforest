@@ -47,7 +47,7 @@ func main() {
 
 	for {
 		if resp := followURL(url); resp.Follow != "" {
-			fmt.Println(resp.Follow)
+			fmt.Println("Following URL:", resp.Follow)
 			followURL(resp.Follow)
 			url = resp.Follow
 		} else {
